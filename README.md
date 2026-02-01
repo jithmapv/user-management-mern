@@ -1,56 +1,53 @@
-# LOGIN - User Authentication System
+# User Authentication System (MERN)
 
 A full-stack user authentication and profile management system built with the MERN stack (MongoDB, Express.js, React, Node.js).
 
-## 📋 Description
+**Academic Project:** This project was developed for academic purposes at **SLIIT** (2nd Year, 2nd Semester) for the **IT2080 – IT Project** module.
 
-This repository contains a complete user authentication system with both user and admin functionalities. The application provides secure registration, login, profile management, and admin user management features.
+---
 
 ## ✨ Features
 
-- **User Authentication**
-  - User registration with name, email, address, gender, and profile picture
-  - Secure login with JWT (JSON Web Token) authentication
-  - Password encryption using bcrypt
-  - User profile management
+- User registration and login with JWT authentication
+- Password hashing with bcryptjs
+- User profile viewing and updating
+- Admin panel functionality for user management
+- Protected routes and authentication middleware
+- Centralized error handling middleware
 
-- **Admin Panel**
-  - Admin routes for user management
-  - User administration capabilities
-
-- **Security**
-  - JWT-based authentication
-  - Password hashing with bcryptjs
-  - Protected routes and middleware
-  - Error handling middleware
+---
 
 ## 🛠️ Tech Stack
 
 ### Backend
-- **Node.js** - Runtime environment
-- **Express.js** - Web application framework
-- **MongoDB** - Database with Mongoose ODM
-- **JWT** - Authentication tokens
-- **bcryptjs** - Password hashing
-- **CORS** - Cross-origin resource sharing
-- **dotenv** - Environment variable management
+
+- Node.js
+- Express.js
+- MongoDB (Mongoose)
+- JWT (JSON Web Token)
+- bcryptjs
+- CORS
+- dotenv
 
 ### Frontend
-- **React** - UI library (v17.0.2)
-- **React Router** - Client-side routing (v5.3.0)
-- **Redux** - State management
-- **React Bootstrap** - UI components
-- **Axios** - HTTP client
+
+- React (v17.0.2)
+- React Router (v5.3.0)
+- Redux
+- React Bootstrap
+- Axios
+
+---
 
 ## 📁 Project Structure
 
-```
+```text
 LOGIN/
 ├── backend/
 │   ├── adminroutes/      # Admin-specific routes
 │   ├── config/           # Database and configuration files
 │   ├── controllers/      # Request handlers
-│   ├── middlewares/      # Custom middleware (error handling, etc.)
+│   ├── middlewares/      # Custom middleware (auth, error handling, etc.)
 │   ├── models/           # Mongoose models
 │   ├── routes/           # API routes
 │   ├── utils/            # Utility functions (token generation, etc.)
@@ -62,19 +59,15 @@ LOGIN/
 │       ├── adminuser/    # Admin user components
 │       ├── components/   # Reusable React components
 │       ├── constants/    # Redux constants
-│       ├── images/       # Image assets
 │       ├── reducers/     # Redux reducers
 │       ├── screens/      # Page components
-│       │   ├── LandingPage/
-│       │   ├── LoginScreen/
-│       │   ├── RegisterScreen/
-│       │   ├── ProfileScreen/
-│       │   └── MyNotes/
 │       ├── App.js        # Main application component
 │       └── store.js      # Redux store configuration
 ├── .env                  # Environment variables
 └── package.json          # Root package configuration
 ```
+
+---
 
 ## 🚀 Getting Started
 
@@ -82,17 +75,19 @@ LOGIN/
 
 - Node.js (v12 or higher)
 - MongoDB database (local or MongoDB Atlas)
-- npm or yarn package manager
+- npm or yarn
 
 ### Installation
 
 1. Clone the repository:
+
    ```bash
-   git clone https://github.com/jithmapv/LOGIN.git
+   git clone https://github.com/jithmapv/user-management-mern.git
    cd LOGIN
    ```
 
-2. Install dependencies for both backend and frontend:
+2. Install dependencies:
+
    ```bash
    npm install
    cd frontend
@@ -100,41 +95,70 @@ LOGIN/
    cd ..
    ```
 
-3. Configure environment variables:
-   Create a `.env` file in the root directory with the following variables:
-   ```env
-   PORT=5000
-   MONGO_URI=your_mongodb_connection_string
-   NODE_ENV=development
-   JWT_SECRET=your_jwt_secret_key
-   ```
+### Environment Variables
 
-### Running the Application
+Create a `.env` file in the root directory:
 
-- **Development mode (both frontend and backend concurrently):**
-  ```bash
-  npm run dev
-  ```
+```env
+PORT=5000
+MONGO_URI=your_mongodb_connection_string
+NODE_ENV=development
+JWT_SECRET=your_jwt_secret_key
+```
 
-- **Backend only:**
-  ```bash
-  npm start
-  ```
+---
 
-- **Frontend only:**
-  ```bash
-  npm run client
-  ```
+## ▶️ Running the Application
 
-The backend server will run on `http://localhost:5000` and the frontend on `http://localhost:3000`.
+### Development Mode (Frontend + Backend)
+
+```bash
+npm run dev
+```
+
+### Backend Only
+
+```bash
+npm start
+```
+
+### Frontend Only
+
+```bash
+npm run client
+```
+
+- Backend: `http://localhost:5000`
+- Frontend: `http://localhost:3000`
+
+---
 
 ## 🔌 API Endpoints
 
 ### User Routes (`/api/users`)
-- `POST /api/users` - Register a new user
-- `POST /api/users/login` - User login
-- `GET /api/users/profile` - Get user profile (protected)
-- `PUT /api/users/profile` - Update user profile (protected)
+
+- `POST /api/users` — Register a new user
+- `POST /api/users/login` — User login
+- `GET /api/users/profile` — Get user profile (protected)
+- `PUT /api/users/profile` — Update user profile (protected)
 
 ### Admin Routes (`/admin`)
-- Admin user management endpoints
+
+- Admin user management endpoints (protected)
+
+---
+
+## 📌 Notes
+
+- This project is intended for learning and academic use.
+- Ensure your `.env` file is **not** committed to the repository.
+
+---
+
+## 📚 Module Information
+
+**Institute:** SLIIT
+**Year/Semester:** 2nd Year, 2nd Semester
+**Module:** IT2080 – IT Project
+
+---

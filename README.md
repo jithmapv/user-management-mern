@@ -11,9 +11,10 @@ A full-stack user authentication and profile management system built with the ME
 - User registration and login with JWT authentication
 - Password hashing with bcryptjs
 - User profile viewing and updating
-- Admin panel functionality for user management
-- Protected routes and authentication middleware
+- User account deletion
+- Admin panel to view all registered users
 - Centralized error handling middleware
+- CORS-enabled REST API
 
 ---
 
@@ -33,7 +34,7 @@ A full-stack user authentication and profile management system built with the ME
 
 - React (v17.0.2)
 - React Router (v5.3.0)
-- Redux
+- Redux (with Redux Thunk)
 - React Bootstrap
 - Axios
 
@@ -42,28 +43,29 @@ A full-stack user authentication and profile management system built with the ME
 ## 📁 Project Structure
 
 ```text
-LOGIN/
+user-management-mern/
 ├── backend/
 │   ├── adminroutes/      # Admin-specific routes
-│   ├── config/           # Database and configuration files
-│   ├── controllers/      # Request handlers
-│   ├── middlewares/      # Custom middleware (auth, error handling, etc.)
-│   ├── models/           # Mongoose models
-│   ├── routes/           # API routes
-│   ├── utils/            # Utility functions (token generation, etc.)
+│   ├── config/           # Database connection configuration
+│   ├── controllers/      # Request handlers (register, login, update profile)
+│   ├── middlewares/      # Custom middleware (error handling)
+│   ├── models/           # Mongoose models (User schema)
+│   ├── routes/           # User API routes
+│   ├── utils/            # Utility functions (JWT token generation)
 │   └── server.js         # Express server entry point
 ├── frontend/
 │   ├── public/           # Static files
 │   └── src/
-│       ├── actions/      # Redux actions
+│       ├── actions/      # Redux action creators
 │       ├── adminuser/    # Admin user components
-│       ├── components/   # Reusable React components
-│       ├── constants/    # Redux constants
+│       ├── components/   # Reusable React components (Header, Footer)
+│       ├── constants/    # Redux action type constants
 │       ├── reducers/     # Redux reducers
-│       ├── screens/      # Page components
-│       ├── App.js        # Main application component
+│       ├── screens/      # Page components (Login, Register, Profile)
+│       ├── App.js        # Main application component with routing
 │       └── store.js      # Redux store configuration
-├── .env                  # Environment variables
+├── .env                  # Environment variables (do not commit)
+├── .gitignore            # Git ignore rules
 └── package.json          # Root package configuration
 ```
 
@@ -73,9 +75,9 @@ LOGIN/
 
 ### Prerequisites
 
-- Node.js (v12 or higher)
-- MongoDB database (local or MongoDB Atlas)
-- npm or yarn
+- [Node.js](https://nodejs.org/) (v12 or higher)
+- [MongoDB](https://www.mongodb.com/) database (local or [MongoDB Atlas](https://www.mongodb.com/atlas))
+- npm (comes with Node.js)
 
 ### Installation
 
@@ -83,13 +85,18 @@ LOGIN/
 
    ```bash
    git clone https://github.com/jithmapv/user-management-mern.git
-   cd LOGIN
+   cd user-management-mern
    ```
 
-2. Install dependencies:
+2. Install backend dependencies:
 
    ```bash
    npm install
+   ```
+
+3. Install frontend dependencies:
+
+   ```bash
    cd frontend
    npm install
    cd ..
@@ -97,7 +104,7 @@ LOGIN/
 
 ### Environment Variables
 
-Create a `.env` file in the root directory:
+Create a `.env` file in the root directory with the following variables:
 
 ```env
 PORT=5000
@@ -106,11 +113,13 @@ NODE_ENV=development
 JWT_SECRET=your_jwt_secret_key
 ```
 
+> **Note:** Never commit your `.env` file to version control. It may contain sensitive credentials.
+
 ---
 
 ## ▶️ Running the Application
 
-### Development Mode (Frontend + Backend)
+### Development Mode (Frontend + Backend concurrently)
 
 ```bash
 npm run dev
@@ -128,8 +137,10 @@ npm start
 npm run client
 ```
 
-- Backend: `http://localhost:5000`
-- Frontend: `http://localhost:3000`
+Once running, access the application at:
+
+- **Frontend:** [http://localhost:3000](http://localhost:3000)
+- **Backend API:** [http://localhost:5000](http://localhost:5000)
 
 ---
 
@@ -137,14 +148,31 @@ npm run client
 
 ### User Routes (`/api/users`)
 
-- `POST /api/users` — Register a new user
-- `POST /api/users/login` — User login
-- `GET /api/users/profile` — Get user profile (protected)
-- `PUT /api/users/profile` — Update user profile (protected)
+| Method   | Endpoint                | Description              |
+| -------- | ----------------------- | ------------------------ |
+| `POST`   | `/api/users`            | Register a new user      |
+| `POST`   | `/api/users/login`      | Authenticate (login)     |
+| `POST`   | `/api/users/profile`    | Update user profile      |
+| `DELETE` | `/api/users/delete/:id` | Delete a user by ID      |
 
 ### Admin Routes (`/admin`)
 
-- Admin user management endpoints (protected)
+| Method | Endpoint       | Description              |
+| ------ | -------------- | ------------------------ |
+| `GET`  | `/admin/user`  | Get all registered users |
+
+---
+
+## 🖥️ Frontend Routes
+
+| Path            | Component        | Description            |
+| --------------- | ---------------- | ---------------------- |
+| `/`             | LandingPage      | Home / landing page    |
+| `/login`        | LoginScreen      | User login page        |
+| `/register`     | RegisterScreen   | User registration page |
+| `/profile`      | ProfileScreen    | User profile page      |
+| `/admin`        | AdminComponent   | Admin dashboard        |
+| `/admin/users`  | AllUsers         | View all users (admin) |
 
 ---
 
@@ -152,13 +180,35 @@ npm run client
 
 - This project is intended for learning and academic use.
 - Ensure your `.env` file is **not** committed to the repository.
+- The backend uses [nodemon](https://nodemon.io/) for automatic server restarts during development.
+- The frontend proxies API requests to `http://127.0.0.1:5000` during development.
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! To contribute:
+
+1. Fork the repository
+2. Create a new branch (`git checkout -b feature/your-feature`)
+3. Commit your changes (`git commit -m 'Add your feature'`)
+4. Push to the branch (`git push origin feature/your-feature`)
+5. Open a Pull Request
+
+---
+
+## 📄 License
+
+This project is licensed under the [ISC License](https://opensource.org/licenses/ISC).
 
 ---
 
 ## 📚 Module Information
 
-**Institute:** SLIIT
-**Year/Semester:** 2nd Year, 2nd Semester
-**Module:** IT2080 – IT Project
+| Detail           | Value                    |
+| ---------------- | ------------------------ |
+| **Institute**    | SLIIT                    |
+| **Year/Semester**| 2nd Year, 2nd Semester   |
+| **Module**       | IT2080 – IT Project      |
 
 ---
